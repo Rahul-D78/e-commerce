@@ -73,7 +73,7 @@ router.post('/login', async(req, res) => {
             err : e
         })
     }
-})
+})  
 
 router.put('/:id', (req, res) => {
     User.findOne({where: {id: req.params.id}})
