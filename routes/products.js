@@ -57,6 +57,27 @@ router.patch('/:id', (req, res) => {
     })
 }) 
 
+//PUT ---- update all fields 
+router.put('/:id', (req, res) => {
+    Product.findOne({where: {id: req.params.id}})
+    .then((product) => {
+        product.update({
+            name: req.body.name,
+            price: req.body.price,
+            image: req.body.image,
+            review: req.body.review,
+            manufacture: req.body.manufacture,
+            description: req.body.description
+        })
+        product.save()
+        res.status(200).send(product)
+    }).catch((e) => {
+        res.status(403).send({
+            err : "error update the products" + e
+        })
+    })
+}) 
+
 //DELTE ---- Delete a product
 router.delete('/:id', (req, res) => {
     Product.findOne({where: {id: req.params.id}})
