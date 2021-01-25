@@ -11,9 +11,9 @@
 ## Prepare DB in the following steps as root :
 
 ```SQL
-create database ecomdb;
+create database ecdb;
 
-create user ecomuser identified by 'pass';
+create user euser identified by 'pass';
 
 use ecomdb;
 

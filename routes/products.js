@@ -1,7 +1,4 @@
 const router = require('express').Router()
-
-router.get('/', (req, res) => {
-    res.send('HIT /products End-Point')
-})
+const Product = require('./../models/db').Product
 
 module.exports = router

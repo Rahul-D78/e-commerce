@@ -52,6 +52,10 @@ const Product = db.define('Product', {
         allowNull: false,
         default: 0.0
     },
+    image :{
+       type: Sequelize.STRING,
+       allowNull: false
+    },
     review: {
         type: Sequelize.STRING,
         allowNull: false,
