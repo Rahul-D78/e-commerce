@@ -51,9 +51,9 @@ router.post('/login', async(req, res) => {
 
     try {
     
-    const exist = await User.findOne({where: {email: req.body.email}, attributes:['password']})
+    const exist = await User.findOne({where: {email: req.body.email}})
     
-    // console.log(exist.toJSON());
+    console.log(exist.toJSON());
     if(!exist) throw 'user with this email not exists'
 
     const myJson = exist.toJSON();
@@ -64,31 +64,15 @@ router.post('/login', async(req, res) => {
     const passMatch = await matchPass(myPass, req.body.password)
     if(!passMatch) throw 'password does not match'
     exist.token = await sign(exist)
-
+    // sanitization(myJson)
     res.status(200).send({
-        body : 'sucessfully logged in'
+        body : exist
     })
     }catch(e) {
         res.status(403).send({
             err : e
         })
     }
-})
-
-//PATCH ---- update a user
-router.patch('/:id', (req, res) => {
-    User.findOne({where: {id: req.params.id}})
-    .then((user) => {
-        user.update({
-            name: req.body.name
-        })
-        res.status(200).send(user)
-        res.save()
-    }).catch((e) => {
-        res.status(403).send({
-            err : "error updating a user"
-        })
-    })
 })
 
 router.put('/:id', (req, res) => {

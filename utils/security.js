@@ -1,8 +1,6 @@
-const { User } = require("../models/db");
-
 function sanitization(user) {
-    if(user.password) delete user.password
-    return user
+    const deleteField =  user.password
+    delete deleteField
 } 
 
 module.exports = {sanitization}
