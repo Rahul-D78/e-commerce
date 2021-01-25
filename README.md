@@ -15,7 +15,7 @@ create database ecdb;
 
 create user euser identified by 'pass';
 
-use ecomdb;
+use ecdb;
 
 grant all privileges on ecomdb.* to ecomuser;
 ```

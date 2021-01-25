@@ -1,5 +1,9 @@
 const { User } = require('../models/db')
+const { hashFunction, matchPassword, hashPass } = require('./../utils/password')
 const router = require('express').Router()
+const bcrypt = require('bcrypt')
+
+const salt = 10
 
 
 //GET ----- get a new user
@@ -18,9 +22,13 @@ router.get('/', (req, res) => {
 
 //POST ------ add a new user
 router.post('/', (req, res) => {
+    
+    const plain = req.body.password
+
+    bcrypt.hash(plain, salt, (err, hash) =>  {
     User.create({
         name: req.body.name,
-        password: req.body.password,
+        password: hash,
         email: req.body.email,
         address: req.body.address,
         telephone: req.body.telephone
@@ -29,8 +37,9 @@ router.post('/', (req, res) => {
         res.status(200).send(user)
     }).catch((e) => {
         res.status(403).send({
-            err : `error creating a post`
+            err : `error creating a post ${e}`
         })
+    }) 
     })
 })
 
