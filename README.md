@@ -1,3 +1,5 @@
+## E-Commerce application in which you can add delete update new `Products` and browse all products . 
+
 ## Technologies Used :
 
 1. Node.JS    -- platform
