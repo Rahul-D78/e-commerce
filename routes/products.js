@@ -1,4 +1,5 @@
 const router = require('express').Router()
+const {f} = require('./../utils/stringUtils')
 const authByToken = require('./../middlewares/auth')
 const User = require('./../models/db').User
 const Product = require('./../models/db').Product
@@ -6,7 +7,7 @@ const Product = require('./../models/db').Product
 
 //GET -----> get all products 
 router.get('/', (req, res) => {
-    Product.findAll({include:{attributes:["UserId"]}})
+    Product.findAll()
     .then((product) => {
         res.status(200).send(product)
 
@@ -17,9 +18,24 @@ router.get('/', (req, res) => {
     })
 })
 
+//GET article by slug  --- Name Here
+router.get('/:slug', async (req, res) => {
+
+    try {
+    const product = await Product.findOne({where: {name: req.params.slug}})
+
+    if(!product) throw 'Product with this name does not exists'
+    res.status(200).send(product)
+    }catch(e) {
+        res.status(500).send({
+            err: e
+        })
+    }
+})
 
 //POST ----> To post a new product
 router.post('/', authByToken, async (req, res) => {
+
     //validate the price
     if((req.body.product.price) === null)     {
         res.status(403).send({
@@ -31,18 +47,16 @@ router.post('/', authByToken, async (req, res) => {
         const user = await User.findOne({where: {email: req.body.user.email}})
         if(!user) throw "user with this email does not exists"
         
-        console.log(req.body.user);
-        let name = parseInt(req.body.user.name);
-        console.log(typeof(name));
+        // console.log(Slugify(req.body.product.name));
+        
         const product = await Product.create({
-        name: req.body.product.name,
+        name: f(req.body.product.name),
         image:req.body.product.image,
         price:req.body.product.price,
         review: req.body.product.review,
         description: req.body.product.description,
         manufacture: req.body.product.manufacture,
         UserId: req.body.user.id 
-        // user
         })
         product.save()
         res.status(200).send({

@@ -3,4 +3,4 @@ function sanitization(user) {
     delete deleteField
 } 
 
-module.exports = {sanitization}
+exports = module.exports = {sanitization}

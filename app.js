@@ -1,5 +1,6 @@
 const express = require('express')
 const bodyParser = require('body-parser')
+require('./utils/stringUtils').f()
 const allRoutes = require('./routes/allRoutes')
 require('./models/db')
 
