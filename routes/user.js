@@ -6,9 +6,9 @@ const router = require('express').Router()
 
 
 //GET the data for the current user 
-router.get('/', authByToken, (req, res) => {
+router.get('/:email', authByToken, (req, res) => {
     //Check if the user exists or not
-    User.findOne({where:{email : req.body.email}})
+    User.findOne({where:{email : req.params.email}})
     .then((user) => {
         res.status(200).send(user)
     }).catch((e) => {
@@ -19,7 +19,7 @@ router.get('/', authByToken, (req, res) => {
 })
 
 //PATCH to patch the data of the current user
-router.patch('/:id', async (req, res) => {
+router.patch('/:id/update', async (req, res) => {
     
     try {
     const user = await User.findOne({where: {id: req.params.id}})
@@ -33,7 +33,7 @@ router.patch('/:id', async (req, res) => {
     })
     user.save()
     res.status(200).send({
-        body : 'save'
+        body : 'successfully added to the db'
     })
     }catch(e) {
         res.status(500).send({

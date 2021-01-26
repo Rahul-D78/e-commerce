@@ -5,7 +5,7 @@ const { hashPass, matchPass } = require('../utils/password')
 const { sanitization } = require('../utils/security')
 
 
-//GET ----- get a new user
+//GET ----- get all users
 router.get('/', (req, res) => {
 
    User.findAll()
@@ -75,28 +75,9 @@ router.post('/login', async(req, res) => {
     }
 })  
 
-router.put('/:id', (req, res) => {
-    User.findOne({where: {id: req.params.id}})
-    .then((user) => {
-      user.update({
-        name: req.body.name,
-        password: req.body.password,
-        email: req.body.email,
-        address: req.body.address,
-        telephone: req.body.telephone 
-      })
-      res.status(200).send(user)
-      user.save()
-    }).catch((e) => {
-        res.status(500).send({
-            err: `all the fileds required ${e}`
-        })
-    })
-})
-
 
 //DELETE ----- delete a user
-router.delete('/:id', (req, res) => {
+router.delete('/:id/delete', (req, res) => {
     User.findOne({where: {id: req.params.id}})
     .then((user) => {
         user.destroy()

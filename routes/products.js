@@ -18,7 +18,7 @@ router.get('/', (req, res) => {
     })
 })
 
-//GET article by slug  --- Name Here
+//GET an article by slug  --- Name Here
 router.get('/:slug', async (req, res) => {
 
     try {
@@ -71,49 +71,36 @@ router.post('/', authByToken, async (req, res) => {
 });
 
 //PATCH ----> Update a new product 
-router.patch('/:id', (req, res) => {
-    Product.findOne({where: {id: req.params.id}})
-    .then((product) => {
-        product.update({
-        name: req.body.name,
-        })
-        product.save()
-        res.status(200).send(product)
-    }).catch((e) => {
-        res.status(403).send({
-            err : "error patching the products" + e
-        })
-    })
-}) 
+router.patch('/:slug/update', authByToken,(req, res) => {
+    const user = User.findOne({where: {name: req.body.user.name}})
 
-//PUT ---- update all fields 
-router.put('/:id', (req, res) => {
-    Product.findOne({where: {id: req.params.id}})
+    Product.findOne({where: {name: req.params.slug}})
     .then((product) => {
         product.update({
-            name: req.body.name,
-            price: req.body.price,
-            image: req.body.image,
-            review: req.body.review,
-            manufacture: req.body.manufacture,
-            description: req.body.description
+        name: product.name != undefined? f(req.body.product.name) : product.name,
+        image: product.image != undefined? req.body.product.image: product.image,
+        price: product.price != undefined ? (req.body.product.price) : product.price,
+        review: product.review != undefined?  req.body.product.review : product.review,
+        description: product.description != undefined ?  req.body.product.description: product.review,
+        manufacture: product.manufacture != undefined ? req.body.product.manufacture: product.manufacture,
+        UserId: user.UserId != undefined? req.body.user.id: user.UserId 
         })
         product.save()
         res.status(200).send(product)
     }).catch((e) => {
         res.status(403).send({
-            err : "error update the products" + e
+            err : `error patching the products ${ e} `
         })
     })
 }) 
 
 //DELTE ---- Delete a product
-router.delete('/:id', (req, res) => {
-    Product.findOne({where: {id: req.params.id}})
+router.delete('/:slug/delete', (req, res) => {
+    Product.findOne({where: {name: req.params.slug}})
     .then((product) => {
         product.destroy(product)
         res.status(200).send({
-            body: "successfully deleted"
+            body: "Successfully deleted"
         })
     }).catch((e) => {
         res.status(403).send({
