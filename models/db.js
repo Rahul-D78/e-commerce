@@ -21,7 +21,7 @@ const User = db.define('User',{
    },
    password: {
        type: Sequelize.STRING,
-       allowNull: false
+       allowNull: true
    },
    email: {
        type: Sequelize.STRING,
@@ -29,11 +29,11 @@ const User = db.define('User',{
    },
    address : {
        type: Sequelize.STRING,
-       allowNull: false
+       allowNull: true
    },
    telephone: {
        type: Sequelize.INTEGER,
-       allowNull: false
+       allowNull: true
    },
    token: {
        type: Sequelize.STRING,
@@ -58,11 +58,11 @@ const Product = db.define('Product', {
     },
     image :{
        type: Sequelize.STRING,
-       allowNull: false
+       allowNull: true
     },
     review: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
     },
     manufacture : {
         type: Sequelize.STRING,
@@ -70,14 +70,14 @@ const Product = db.define('Product', {
     },
     description: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: true
     }
 });
 
 User.hasMany(Product)
+Product.belongsTo(User)
 
-
-db.sync()
+db.sync({force: false})
 .then(() => {
     console.log(`Database created`);
 }).catch((e) => {

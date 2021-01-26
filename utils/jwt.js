@@ -6,6 +6,7 @@ const JWT_secret = 'some-secret-key'
 function sign(user) {
     return new Promise((resolve, reject) => {
         jwt.sign({
+            id: user.id,
             name: user.name,
             email: user.email
         }, JWT_secret, (err, encoded) => {

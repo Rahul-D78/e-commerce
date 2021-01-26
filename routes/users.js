@@ -22,18 +22,18 @@ router.get('/', (req, res) => {
 //POST ------ Register a new user
 router.post('/', async(req, res) => {
     
-    const existing = await User.findOne({where: {email: req.body.email}})
+    const existing = await User.findOne({where: {email: req.body.user.email}})
     
     try {
 
     if(existing) throw 'user with this email exists'
     
     await User.create({
-        name: req.body.name,
-        password: await hashPass(req.body.password),
-        email: req.body.email,
-        address: req.body.address,
-        telephone: req.body.telephone,
+        name: req.body.user.name,
+        password: await hashPass(req.body.user.password),
+        email: req.body.user.email,
+        address: req.body.user.address,
+        telephone: req.body.user.telephone,
     }).then(async(user) => {
         user.token = await sign(user)
         user.save()
@@ -41,7 +41,7 @@ router.post('/', async(req, res) => {
     })
     }catch(e) {
         res.status(403).send({
-         err : e   
+         err : `${e}`   
         })
     } 
 })
@@ -51,9 +51,9 @@ router.post('/login', async(req, res) => {
 
     try {
     
-    const exist = await User.findOne({where: {email: req.body.email}})
+    const exist = await User.findOne({email: {email: req.body.user.email}})
     
-    console.log(exist.toJSON());
+    // console.log(exist.toJSON());
     if(!exist) throw 'user with this email not exists'
 
     const myJson = exist.toJSON();
@@ -61,16 +61,16 @@ router.post('/login', async(req, res) => {
 
 
     //Validate Password
-    const passMatch = await matchPass(myPass, req.body.password)
+    const passMatch = await matchPass(myPass, req.body.user.password)
     if(!passMatch) throw 'password does not match'
     exist.token = await sign(exist)
     // sanitization(myJson)
     res.status(200).send({
-        body : exist
+        body : exist.token
     })
     }catch(e) {
         res.status(403).send({
-            err : e
+            err : "Login Failed check for the credentials"
         })
     }
 })  

@@ -15,12 +15,12 @@ async function authByToken(req, res, next) {
    try {
        const user = await decode(token)
        if(!user) throw 'No user Found in Token'
-       req.body = user
+       req.body.user = user
        next()
     }catch(e) {
       res.status(500).send({
           err : e
       })
-   }
+    }
 }
 module.exports = authByToken
