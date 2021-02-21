@@ -1,8 +1,13 @@
 import React from 'react'
-
+import Products from './Products/Products'
+import Navbar from './Navbar/Navbar'
 const App = () => {
     return (
-        <h1>Hello React</h1>
+        <div>
+
+        <Navbar/>,
+        <Products />
+        </div>
     )
 }
 
