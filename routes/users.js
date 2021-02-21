@@ -2,7 +2,7 @@ const { User } = require('../models/db')
 const router = require('express').Router()
 const { sign } = require('../utils/jwt')
 const { hashPass, matchPass } = require('../utils/password')
-const { sanitization } = require('../utils/security')
+// const { sanitization } = require('../utils/security')
 
 
 //GET ----- get all users

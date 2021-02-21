@@ -79,9 +79,9 @@ router.patch('/:slug/update', authByToken,(req, res) => {
         product.update({
         name: product.name != undefined? f(req.body.product.name) : product.name,
         image: product.image != undefined? req.body.product.image: product.image,
-        price: product.price != undefined ? (req.body.product.price) : product.price,
+        price: product.price != undefined ? req.body.product.price : product.price,
         review: product.review != undefined?  req.body.product.review : product.review,
-        description: product.description != undefined ?  req.body.product.description: product.review,
+        description: product.description != undefined ?  req.body.product.description: product.description,
         manufacture: product.manufacture != undefined ? req.body.product.manufacture: product.manufacture,
         UserId: user.UserId != undefined? req.body.user.id: user.UserId 
         })

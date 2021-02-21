@@ -1,0 +1,27 @@
+<%- include('partials/header.ejs') %> 
+    
+<div class="container">
+    <h1 class="mb-4" style="color: whitesmoke;">E Shopping</h1>
+    <a href="/api/products/new" class="btn btn-primary mb-4">NEW_PRODUCTS</a>
+
+
+
+    <div class="row" id="product-list">
+            <% prods.forEach(prod => { %>
+            <div class="col-bg-8 card mx-3 p-4 pixel mb-4" style="width: 18rem;">
+                <img class="card-img-top card-img" src="<%= prod.image %>" alt="image">
+                <h4 class="product-name"><%= prod.name %> </h4>
+                <div class="product-manufacture">by <%= prod.manufacture %> </div>
+                <div class="row">
+                    <div class="col m-0 p-3">
+                        <b>₹ <%= prod.price %></b>
+                        </div>
+                        <a href="<%= prod.id %> " style="color: white;" class="col btn btn-primary m-3">Buy</a>    
+                </div>
+            </div>
+            <% }); %>
+        </div>
+    </div>
+
+
+<!-- <%- include('partials/footer.ejs')  %>  -->

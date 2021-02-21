@@ -1,12 +1,24 @@
 const express = require('express')
 const bodyParser = require('body-parser')
-require('./utils/stringUtils').f()
 const allRoutes = require('./routes/allRoutes')
 require('./models/db')
+const path = require('path')
+const { Product } = require('./models/db')
 
 const app = express()
+app.use(express.static(path.join(__dirname ,'public')))
+app.set('view engine', 'ejs')
 app.use(express.json())
+app.use(bodyParser.urlencoded({extended:true}))
 app.use(allRoutes)
+
+
+app.get('/', (req, res) => {
+    Product.findAll()
+    .then((products) => {
+       res.render('home', {prods : products})
+    })
+})
 
 let PORT = process.env.PORT || 4000
 

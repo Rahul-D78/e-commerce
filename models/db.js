@@ -74,6 +74,10 @@ const Product = db.define('Product', {
     }
 });
 
+// const Cart = db.define('Cart', {
+
+// })
+
 User.hasMany(Product)
 Product.belongsTo(User)
 
