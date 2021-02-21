@@ -9,6 +9,8 @@
 6. MySQL      -- Database
 7. Express    -- Framework
 8. JWT        -- Authentication
+9. React      -- Frontend
+10. Stripe    -- Payment Gateway
 
 ## Prepare DB in the following steps as root :
 
@@ -24,11 +26,14 @@ grant all privileges on ecomdb.* to ecomuser;
 
 ## Installation :
 ```
-1. Install the app with required dependencies .
+1. Install the app with required dependencies {Backend -- Node.js} .
 $npm install
 
-2. Prepare the database with the prepare db commands .
+2. Install the app with required dependencies {Frontend -- React.js} .
+$npm client-install
 
-3. Run the app using nodemon.
-$npm start
+3. Prepare the database with the prepare db commands .
+
+4. Run the app using nodemon.
+$npm start dev
 ```
