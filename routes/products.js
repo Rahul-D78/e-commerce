@@ -34,17 +34,16 @@ router.get('/:slug', async (req, res) => {
 })
 
 //POST ----> To post a new product
+//TODO: --- add auhtByToke  
 router.post('/',  async (req, res) => {
 
-    
     try {
-
-        // //validate the price
-        // if((req.body.product.price) === null)     {
-        //     res.status(403).send({
-        //         err: "price is not a valid number"
-        //     });
-        // }
+        //validate the price
+        if((req.body.price) > 0 && (req.body.price) < 10)     {
+            res.status(403).send({
+                err: "price is not a valid number"
+            });
+        }
         
         // const user = await User.findOne({where: {email: req.body.user.email}})
         // if(!user) throw "user with this email does not exists"
@@ -72,20 +71,21 @@ router.post('/',  async (req, res) => {
     }
 });
 
-//PATCH ----> Update a new product 
-router.patch('/:slug/update', authByToken,(req, res) => {
-    const user = User.findOne({where: {name: req.body.user.name}})
+//PATCH ----> Update a new product
+//TODO --- add auhtByToke 
+router.patch('/:id/update', (req, res) => {
+    // const user = User.findOne({where: {name: req.body.user.name}})
 
-    Product.findOne({where: {name: req.params.slug}})
+    Product.findOne({where: {id: req.params.id}})
     .then((product) => {
         product.update({
-        name: product.name != undefined? f(req.body.product.name) : product.name,
-        image: product.image != undefined? req.body.product.image: product.image,
-        price: product.price != undefined ? req.body.product.price : product.price,
-        review: product.review != undefined?  req.body.product.review : product.review,
-        description: product.description != undefined ?  req.body.product.description: product.description,
-        manufacture: product.manufacture != undefined ? req.body.product.manufacture: product.manufacture,
-        UserId: user.UserId != undefined? req.body.user.id: user.UserId 
+        name: product.name != undefined? f(req.body.name) : product.name,
+        image: product.image != undefined? req.body.image: product.image,
+        price: product.price != undefined ? req.body.price : product.price,
+        // review: product.review != undefined?  req.body.review : product.review,
+        description: product.description != undefined ?  req.body.description: product.description,
+        manufacture: product.manufacture != undefined ? req.body.manufacture: product.manufacture,
+        // UserId: user.UserId != undefined? req.body.user.id: user.UserId 
         })
         product.save()
         res.status(200).send(product)
@@ -97,7 +97,7 @@ router.patch('/:slug/update', authByToken,(req, res) => {
 }) 
 
 //DELTE ---- Delete a product
-router.delete('/:slug/delete', (req, res) => {
+router.delete('/:id/delete', (req, res) => {
     Product.findOne({where: {name: req.params.slug}})
     .then((product) => {
         product.destroy(product)

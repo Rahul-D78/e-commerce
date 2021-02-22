@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import Products from './Products/Products';
 import Navbar from './Navbar/Navbar';
 import { useDispatch } from 'react-redux';
@@ -9,10 +9,11 @@ import { BrowserRouter, Route } from 'react-router-dom';
 const App = () => {
 
     const dispatch = useDispatch();
+    const [currentId, setCurrentId] = useState(null);
 
     useEffect(() => {
        dispatch(getPosts());
-    }, [dispatch])
+    }, [currentId, dispatch])
 
     return (
         <div>
@@ -22,11 +23,11 @@ const App = () => {
         <Navbar/>
 
         <Route exact path='/'>
-        <Products />
+        <Products setCurrentId={setCurrentId}/>
         </Route>
         
         <Route path='/product'>   
-        <Form/>
+        <Form currentId={currentId} setCurrentId={setCurrentId} />
         </Route>
 
         </BrowserRouter>

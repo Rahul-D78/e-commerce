@@ -6,7 +6,7 @@ import useStyles from './styles'
 import { useSelector } from 'react-redux'
 
 
-const Products = props => {
+const Products = ({ setCurrentId }) => {
 
     const classes = useStyles();
     const products = useSelector((state) => state.posts)
@@ -21,7 +21,7 @@ const Products = props => {
                     <Grid container justify="center" spacing={4}>
                         {products.map((product) => (
                         <Grid item key={product.id} xs={12} sm={6} lg={3}>
-                            <Product product={product}  />
+                            <Product product={product}  setCurrentId={setCurrentId} />
                         </Grid>
                         ))}
                     </Grid> 

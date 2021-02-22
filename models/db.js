@@ -41,6 +41,9 @@ const User = db.define('User',{
    }
 });
 
+//TODO: --- Add a categogy and Tags and implement searching 
+//TODO: --- Implement releted items via the category and the price and tage
+
 const Product = db.define('Product', {
     id : {
         type: Sequelize.INTEGER,

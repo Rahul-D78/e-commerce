@@ -1,13 +1,14 @@
-import React, {useState} from 'react'
+import React, {useState, useSelector, useEffect} from 'react'
 import { TextField, Typography, Button, Paper } from '@material-ui/core'
 // import FileBase from 'react-file-base64'
 import useStyles from './styles'
 import { useDispatch } from 'react-redux';
 
-import { createProds } from '../../actions/posts'
+import { createProds, updateProd } from '../../actions/posts'
 
-const Form = () => {
+const Form = ({ currentId, setCurrentId }) => {
 
+    const post = useSelector((state) => currentId ? state.posts.find((p) => p.id === currentId): null)
     const dispatch = useDispatch();
     const classes = useStyles();
     const [postData, setPostData] = useState({
@@ -17,11 +18,22 @@ const Form = () => {
     const handleSubmit = (e) =>{
        e.preventDefault();
 
-       dispatch(createProds(postData))
+       if(currentId) {
+         dispatch(updateProd(currentId, postData));
+      }else {
+
+        dispatch(createProds(postData))
+      }
+      clear()
     }
 
-    const clear = () => {
+    useEffect(() => {
+      if(post) setPostData(post);
+    }, [post])
 
+    const clear = () => {
+      setCurrentId(null);
+      setPostData({  name:"", price:0,manufacture:"",image:"", description:"" })
     }
 
     return (
