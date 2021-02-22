@@ -34,29 +34,31 @@ router.get('/:slug', async (req, res) => {
 })
 
 //POST ----> To post a new product
-router.post('/', authByToken, async (req, res) => {
+router.post('/',  async (req, res) => {
 
-    //validate the price
-    if((req.body.product.price) === null)     {
-        res.status(403).send({
-            err: "price is not a valid number"
-        });
-    }
-
+    
     try {
-        const user = await User.findOne({where: {email: req.body.user.email}})
-        if(!user) throw "user with this email does not exists"
+
+        // //validate the price
+        // if((req.body.product.price) === null)     {
+        //     res.status(403).send({
+        //         err: "price is not a valid number"
+        //     });
+        // }
+        
+        // const user = await User.findOne({where: {email: req.body.user.email}})
+        // if(!user) throw "user with this email does not exists"
         
         // console.log(Slugify(req.body.product.name));
         
         const product = await Product.create({
-        name: f(req.body.product.name),
-        image:req.body.product.image,
-        price:req.body.product.price,
-        review: req.body.product.review,
-        description: req.body.product.description,
-        manufacture: req.body.product.manufacture,
-        UserId: req.body.user.id 
+        name: f(req.body.name),
+        // image:req.body.image,
+        price:req.body.price,
+        // review: req.body.product.review,
+        description: req.body.description,
+        manufacture: req.body.manufacture,
+        // UserId: req.body.user.id 
         })
         product.save()
         res.status(200).send({

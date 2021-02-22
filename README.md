@@ -11,7 +11,8 @@
 8. JWT        -- Authentication
 9. React      -- Frontend
 10. Redux     -- State Management
-11. Stripe    -- Payment Gateway
+11. Testing   -- Jest
+12. Stripe    -- Payment Gateway
 
 ## Prepare DB in the following steps as root :
 
@@ -22,7 +23,7 @@ create user euser identified by 'pass';
 
 use ecdb;
 
-grant all privileges on ecomdb.* to ecomuser;
+grant all privileges on ecdb.* to euser;
 ```
 
 ## Installation :

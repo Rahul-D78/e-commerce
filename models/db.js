@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 
-const db = new Sequelize('ecdb','ecuser','pass',{
+const db = new Sequelize('ecdb','euser','pass',{
     dialect: 'mysql',
     host: 'localhost',
     pool: {
@@ -52,9 +52,9 @@ const Product = db.define('Product', {
         allowNull: false
     },
     price: {
-        type: Sequelize.FLOAT,
+        type: Sequelize.INTEGER,
         allowNull: false,
-        default: 0.0
+        // default: 0.0
     },
     image :{
        type: Sequelize.STRING,

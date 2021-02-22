@@ -3,6 +3,7 @@ import Products from './Products/Products';
 import Navbar from './Navbar/Navbar';
 import { useDispatch } from 'react-redux';
 import { getPosts } from '../actions/posts'
+import Form from './Form/Form'
 
 const App = () => {
 
@@ -17,6 +18,7 @@ const App = () => {
 
         <Navbar/>,
         <Products />
+        <Form/>
         </div>
     )
 }
