@@ -1,4 +1,5 @@
 const express = require('express')
+const cors = require('cors')
 const bodyParser = require('body-parser')
 const allRoutes = require('./routes/allRoutes')
 require('./models/db')
@@ -6,6 +7,7 @@ const path = require('path')
 const { Product } = require('./models/db')
 
 const app = express()
+app.use(cors())
 app.use(express.static(path.join(__dirname ,'public')))
 app.set('view engine', 'ejs')
 app.use(express.json())

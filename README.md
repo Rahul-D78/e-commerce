@@ -10,7 +10,8 @@
 7. Express    -- Framework
 8. JWT        -- Authentication
 9. React      -- Frontend
-10. Stripe    -- Payment Gateway
+10. Redux     -- State Management
+11. Stripe    -- Payment Gateway
 
 ## Prepare DB in the following steps as root :
 
