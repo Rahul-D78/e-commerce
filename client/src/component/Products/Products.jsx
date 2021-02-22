@@ -1,34 +1,33 @@
 import React from 'react'
 import Product from './Product/Product'
-import { Grid } from '@material-ui/core'
+import { Grid, CircularProgress } from '@material-ui/core'
 import useStyles from './styles'
 
 import { useSelector } from 'react-redux'
 
-const products = [
-    {id: 1, name: 'apple-macbook', manufacture: 'Apple', price: '20.5'},
-    {id: 1, name: 'sony-wh-100', manufacture: 'Sony', price: '21.5'}
-];
 
 const Products = props => {
 
     const classes = useStyles();
-    const posts = useSelector((state) => state.posts)
+    const products = useSelector((state) => state.posts)
 
-    console.log(posts);
+    console.log(products);
 
     return (
-        <main className={classes.content}>
-           <div className={classes.toolbar}/>
-           <Grid container justify="center" spacing={4}>
-              {products.map((product) => (
-                  <Grid item key={product.id} xs={12} sm={6} lg={3}>
-                    <Product product={product}  />
-                  </Grid>
-              ))}
-
-           </Grid> 
-        </main>
+        !products.length ? <CircularProgress/> :(
+        <Grid >
+            <main className={classes.content}>
+                <div className={classes.toolbar}/>
+                    <Grid container justify="center" spacing={4}>
+                        {products.map((product) => (
+                        <Grid item key={product.id} xs={12} sm={6} lg={3}>
+                            <Product product={product}  />
+                        </Grid>
+                        ))}
+                    </Grid> 
+            </main>
+        </Grid>
+        )
     )
 }
 export default Products

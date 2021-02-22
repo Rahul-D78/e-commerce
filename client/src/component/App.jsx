@@ -4,6 +4,7 @@ import Navbar from './Navbar/Navbar';
 import { useDispatch } from 'react-redux';
 import { getPosts } from '../actions/posts'
 import Form from './Form/Form'
+import { BrowserRouter, Route } from 'react-router-dom';
 
 const App = () => {
 
@@ -15,10 +16,20 @@ const App = () => {
 
     return (
         <div>
+         
+        <BrowserRouter>
 
-        <Navbar/>,
+        <Navbar/>
+
+        <Route exact path='/'>
         <Products />
+        </Route>
+        
+        <Route path='/product'>   
         <Form/>
+        </Route>
+
+        </BrowserRouter>
         </div>
     )
 }

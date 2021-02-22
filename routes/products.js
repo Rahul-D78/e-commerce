@@ -53,7 +53,7 @@ router.post('/',  async (req, res) => {
         
         const product = await Product.create({
         name: f(req.body.name),
-        // image:req.body.image,
+        image:req.body.image,
         price:req.body.price,
         // review: req.body.product.review,
         description: req.body.description,
