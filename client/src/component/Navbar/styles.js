@@ -1,3 +1,4 @@
+import { deepPurple } from '@material-ui/core/colors';
 import { makeStyles, fade } from '@material-ui/core/styles';
 
 const drawerWidth = 0;
@@ -10,6 +11,19 @@ export default makeStyles((theme) => ({
       width: `calc(100% - ${drawerWidth}px)`,
       marginLeft: drawerWidth,
     },
+  },
+  profile: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    width: 'auto'
+  },
+  purple: {
+    color: theme.palette.getContrastText(deepPurple[500]),
+    backgroundColor: deepPurple[500],
+  },
+  userName: {
+    display: 'flex',
+    alignItems: 'center'
   },
   title: {
     flexGrow: 1,

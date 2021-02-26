@@ -9,6 +9,7 @@ export const fetchProds = () => axios.get(url);
 export const createProds = (newPost) => axios.post(url, newPost);
 
 //PATCH a Product
-export const updateProds = (id, updatedPost) => axios.patch(`${url}/${id}/update`, updatedPost); 
+// export const updateProds = (id, updatedPost) => axios.patch(`${url}/${id}`, updatedPost); 
 
 //DELETE a Product
+export const deleteProd = (id) => axios.delete(`${url}/${id}`)

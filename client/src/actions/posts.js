@@ -1,3 +1,4 @@
+// import { Dialpad } from '@material-ui/icons';
 import * as api from '../api';
 
 //Action Creators
@@ -24,13 +25,25 @@ export const createProds = (post) => async (dispatch) => {
 
 }
 
-export const updateProd = (id, post) => async (dispatch) => {
+/**
+ export const updateProds = (id, post) => async (dispatch) => {
     try {
-
+         
         const { data } = await api.updateProds(id, post)
-        
+         
         dispatch({ type: 'UPDATE', payload: data})
+         
+    } catch (error) {
+        console.log(error);
+    }
+}
+*/
 
+export const deleteProd = (id) => async(dispatch) => {
+    try {
+        const {data} = await api.deleteProd(id)
+        
+        dispatch({type: 'DELETE', payload: data})
     } catch (error) {
         console.log(error);
     }

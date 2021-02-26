@@ -98,7 +98,7 @@ router.patch('/:id/update', (req, res) => {
 
 //DELTE ---- Delete a product
 router.delete('/:id/delete', (req, res) => {
-    Product.findOne({where: {name: req.params.slug}})
+    Product.findOne({where: {id: req.params.id}})
     .then((product) => {
         product.destroy(product)
         res.status(200).send({
