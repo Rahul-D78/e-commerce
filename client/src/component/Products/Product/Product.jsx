@@ -1,10 +1,10 @@
 import React from 'react'
 import { Card, CardMedia, CardContent, CardActions, Typography, IconButton, Button } from '@material-ui/core';
-import { AddShoppingCart, Delete, MoreHorizOutlined } from '@material-ui/icons';
+import { AddShoppingCart, Delete } from '@material-ui/icons';
 // import DeleteIcon from '@material-ui/icons/Delete'
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import useStyles from './style';
-import { Link, Router } from 'react-router-dom';
+// import { Link, Router } from 'react-router-dom';
 import { useDispatch } from 'react-redux'; 
 
 import { deleteProd } from '../../../actions/posts'
@@ -12,7 +12,7 @@ import { deleteProd } from '../../../actions/posts'
 function Product({product, setCurrentId}) {
 
     const classes = useStyles();
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
 
     return (
         

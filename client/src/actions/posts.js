@@ -38,11 +38,11 @@ export const createProds = (post) => async (dispatch) => {
     }
 }
 
-export const deleteProd = (id) => async(dispatch) => {
+export const deleteProd = (id) => async (dispatch) => {
     try {
-        const {data} = await api.deleteProd(id)
+        await api.deleteProd(id)
         
-        dispatch({type: 'DELETE', payload: data})
+        dispatch({type: 'DELETE', payload: id})
     } catch (error) {
         console.log(error);
     }

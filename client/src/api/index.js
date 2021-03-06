@@ -12,7 +12,7 @@ export const createProds = (newPost) => API.post('/products', newPost);
 export const updateProds = (id, updatedPost) => API.patch(`/products/${id}/update`, updatedPost); 
 
 //DELETE a Product
-export const deleteProd = (id) => axios.delete(`'/products'/${id}`)
+export const deleteProd = (id) => API.delete(`/products/${id}/delete`)
 
 export const signUp = (formData) => API.post('/users/login', formData);
 export const logIn  = (formData) => API.post('/users/login', formData);
