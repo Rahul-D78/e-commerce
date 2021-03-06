@@ -20,7 +20,7 @@ router.get('/', (req, res) => {
 
 
 //POST ------ Register a new user
-router.post('/', async(req, res) => {
+router.post('/signup', async(req, res) => {
     
     const existing = await User.findOne({where: {email: req.body.user.email}})
     

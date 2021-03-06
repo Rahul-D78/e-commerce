@@ -25,6 +25,16 @@ async function decode(token){
    })
 }
 
+async function oauth(token) {
+    return new Promise((resolve, reject) => {
+        jwt.decode(token)
+        .then((err, decoded) => {
+            if(err) return reject(err)
+            resolve(new User(decoded))
+        })
+    })
+}
+
 //FOR Testing purpose only !!!!!
 
 // async function run() {
@@ -36,4 +46,4 @@ async function decode(token){
 
 // run()
 
-module.exports = { sign , decode}
+module.exports = { sign , decode, oauth}

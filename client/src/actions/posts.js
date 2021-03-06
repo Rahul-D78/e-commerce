@@ -9,7 +9,7 @@ export const getPosts = () => async (dispatch) => {
        
         dispatch({ type: 'FETCH_ALL', payload: data });  
     } catch (error) {
-       console.log(error.message); 
+       console.log(error); 
     }
 }
 
@@ -25,7 +25,7 @@ export const createProds = (post) => async (dispatch) => {
 
 }
 
-/**
+
  export const updateProds = (id, post) => async (dispatch) => {
     try {
          
@@ -37,7 +37,6 @@ export const createProds = (post) => async (dispatch) => {
         console.log(error);
     }
 }
-*/
 
 export const deleteProd = (id) => async(dispatch) => {
     try {

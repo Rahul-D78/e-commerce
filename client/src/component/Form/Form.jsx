@@ -1,15 +1,15 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { TextField, Typography, Button, Paper } from '@material-ui/core'
 // import FileBase from 'react-file-base64'
 import useStyles from './styles'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 //updateProds
-import { createProds } from '../../actions/posts'
+import { createProds, updateProds } from '../../actions/posts'
 
 const Form = ({ currentId, setCurrentId }) => {
 
-    // const post = useSelector((state) => (currentId ? state.posts.find((p) => p.id === currentId): null));
+    const post = useSelector((state) => (currentId ? state.posts.find((p) => p.id === currentId): null));
     const dispatch = useDispatch();
     const classes = useStyles();
     const [postData, setPostData] = useState({
@@ -19,29 +19,29 @@ const Form = ({ currentId, setCurrentId }) => {
     const handleSubmit = (e) =>{
        e.preventDefault();
 
-      // if(currentId) {
-      //    dispatch(updateProds(currentId, postData));
-      // }else {
+      if(currentId) {
+         dispatch(updateProds(currentId, postData));
+      }else {
 
         dispatch(createProds(postData))
-      // }
-      // clear()
+      }
+      clear()
     }
 
-    // useEffect(() => {
-    //   if(post) setPostData(post);
-    // }, [post])
+    useEffect(() => {
+      if(post) setPostData(post);
+    }, [post])
 
     const clear = () => {
-     // setCurrentId(null);
-     // setPostData({  name:"", price:0,manufacture:"",image:"", description:"" })
+     setCurrentId(null);
+     setPostData({  name:"", price:0,manufacture:"",image:"", description:"" })
     }
 
     return (
 
       <Paper className={classes.paper}>
           <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
-            <Typography variant="h6"> add your product </Typography>
+            <Typography variant="h6"> {currentId ? 'Editing' : 'create '} Your Product</Typography>
             <TextField name="name" variant="outlined" label="Name" fullWidth value={postData.name} onChange={(e) => setPostData({ ...postData, name: e.target.value})}/>
             <TextField type="number" name="price" variant="outlined" label="Price" fullWidth value={postData.price} onChange={(e) => setPostData({ ...postData, price: e.target.value})}/>
             <TextField name="image" variant="outlined" label="Image" fullWidth value={postData.image} onChange={(e) => setPostData({ ...postData, image: e.target.value})}/>

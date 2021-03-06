@@ -1,4 +1,4 @@
-const { decode } = require("../utils/jwt");
+const { decode, oauth } = require("../utils/jwt");
 require('express')
 
 async function authByToken(req, res, next) {
@@ -12,10 +12,24 @@ async function authByToken(req, res, next) {
    })
    
    const token = head.split(' ')[1];
+   const isCustomAuth = token.length < 500; 
+
+   let user;
    try {
-       const user = await decode(token)
-       if(!user) throw 'No user Found in Token'
-       req.body.user = user
+
+       if(token && isCustomAuth) {
+            user = await decode(token)
+            if(!user) throw 'No user Found in Token'
+            // req.body.user = user;
+            req.userId = user.id;
+       
+        }else {
+            user = await oauth(token);
+            if(!user) throw 'No user found'
+            // req.body.user = user;
+            req.userId = user.sub;
+        }
+
        next()
     }catch(e) {
       res.status(500).send({

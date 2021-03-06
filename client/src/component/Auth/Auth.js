@@ -8,24 +8,35 @@ import useStyles from './styles'
 import Icon from './icon'
 import { useDispatch } from 'react-redux'
 
+import { login, signup } from '../../actions/auth'
+
+const initialState = { firstName: '', lastName: '', email: '' ,password: '', confirmPassword: '' }
+
 const Auth = () => {
     const classes = useStyles();
+    const history = useHistory();
     const dispatch = useDispatch();
     const [showPass, setShowPass] = useState(false)
     const [isSignUp, setIsSignUp] = useState(false);
-    const history = useHistory();
+    const [formData, setFormData] = useState(initialState);
 
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
+        e.preventDefault();
 
-    }
-    const handleChange = () => {
-
+        if(isSignUp) {
+            dispatch(signup(formData, history));
+        }else {
+            dispatch(login(formData, history));
+        }
+    }; 
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value})
     } 
     const handleShowPass = () => setShowPass((prevShowPass) => !prevShowPass)
  
     const switchMode = () => {
         setIsSignUp((prevIsSignUp) => !prevIsSignUp);
-        handleShowPass(false)
+        setShowPass(false)
     }
 
     const googleSuccess = (res) => {
@@ -53,8 +64,8 @@ const Auth = () => {
                     <Grid container spacing={2}>
                         { isSignUp && (
                             <>
-                                <Input name="firstName" label="First Name" handleChange={handleChange} half></Input>
                                 <Input name="firstName" label="First Name" handleChange={handleChange} autoFocus half></Input>
+                                <Input name="lastName" label="Last Name" handleChange={handleChange} half></Input>
                             </>
                         )}
                         <Input name="email" label="Email Address" handleChange={handleChange} type="email" />
@@ -62,7 +73,7 @@ const Auth = () => {
                         { isSignUp && <Input name="confirmPassword" label="Repeat Password" handleChange={handleChange} type="password"  /> }
                     </Grid>
                     <GoogleLogin
-                        clientId="Your Google API ID"
+                        clientId=""
                         render={(renderProps) => (
                             <Button className={classes.googleButton} color="primary" fullWidth onClick={renderProps.onClick} disabled={renderProps.disabled} variant="contained" startIcon={<Icon />}>
                                 Google Sign In

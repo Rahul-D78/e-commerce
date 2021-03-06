@@ -79,6 +79,7 @@ router.patch('/:id/update', (req, res) => {
     Product.findOne({where: {id: req.params.id}})
     .then((product) => {
         product.update({
+        id: product.id,     
         name: product.name != undefined? f(req.body.name) : product.name,
         image: product.image != undefined? req.body.image: product.image,
         price: product.price != undefined ? req.body.price : product.price,
