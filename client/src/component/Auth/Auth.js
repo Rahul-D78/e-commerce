@@ -39,7 +39,7 @@ const Auth = () => {
         setShowPass(false)
     }
 
-    const googleSuccess = (res) => {
+    const googleSuccess = async (res) => {
        const result = res?.profileObj;
        const token = res?.tokenId;
        try {
@@ -73,7 +73,7 @@ const Auth = () => {
                         { isSignUp && <Input name="confirmPassword" label="Repeat Password" handleChange={handleChange} type="password"  /> }
                     </Grid>
                     <GoogleLogin
-                        clientId=""
+                        clientId="907804852724-1ems6d648i4bahl10cn3j3dq4d50psr1.apps.googleusercontent.com"
                         render={(renderProps) => (
                             <Button className={classes.googleButton} color="primary" fullWidth onClick={renderProps.onClick} disabled={renderProps.disabled} variant="contained" startIcon={<Icon />}>
                                 Google Sign In

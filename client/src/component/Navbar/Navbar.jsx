@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { AppBar, Toolbar, IconButton, Badge, Typography, Avatar, Button } from '@material-ui/core';
 import { ShoppingCart } from '@material-ui/icons';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import logo from '../../assets/commerce.png'
 
@@ -12,7 +12,7 @@ const Navbar = () => {
 
     const dispatch = useDispatch();
     const history = useHistory();
-    
+    const location = useLocation();
     const classes = useStyle();
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')))
 
@@ -33,15 +33,14 @@ const Navbar = () => {
         //JWT.......
         setUser(JSON.parse(localStorage.getItem('profile')))
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
-    // location
+    }, [location])
     
     return (
         <div>
 
            <AppBar position="fixed" className={classes.appBar} color="inherit">
              <Toolbar>
-                <Typography variant="h6"  className={classes.title} color="inherit">
+                <Typography  component={Link} to="/" variant="h6"  className={classes.title} color="inherit">
                     <img src={logo} alt="Commerce.js" height="25px" className={classes.image}/>
                     Commerce.js
                 </Typography>
@@ -60,7 +59,7 @@ const Navbar = () => {
                         <Button variant="contained" color="secondary" onClick={Logout}>LogOUT</Button>
                     </div>
                 ) : (
-                    <Button variant="contained" color="primary">Sign IN</Button>
+                    <Button component={Link} to="/auth" variant="contained" color="primary">Sign IN</Button>
                 )}
              </Toolbar>
            </AppBar>

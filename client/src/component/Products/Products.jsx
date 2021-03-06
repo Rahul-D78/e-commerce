@@ -4,7 +4,7 @@ import { Grid, CircularProgress } from '@material-ui/core'
 import useStyles from './styles'
 
 import { useSelector } from 'react-redux'
-
+import Form from '../Form/Form'
 
 const Products = ({ setCurrentId }) => {
 
@@ -26,6 +26,7 @@ const Products = ({ setCurrentId }) => {
                         ))}
                     </Grid> 
             </main>
+            <Form/>
         </Grid>
         )
     )

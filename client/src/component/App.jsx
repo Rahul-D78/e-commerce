@@ -1,11 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import Products from './Products/Products';
-// import Auth from './Auth/Auth'
+import Auth from './Auth/Auth'
 import Navbar from './Navbar/Navbar';
 import { useDispatch } from 'react-redux';
 import { getPosts } from '../actions/posts'
-import Form from './Form/Form'
-// import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 const App = () => {
 
@@ -19,22 +18,17 @@ const App = () => {
     return (
         <div>
 
-            <Navbar/>
-
-
-           <Products setCurrentId={setCurrentId} />
-           <Form setCurrentId={setCurrentId} currentId={currentId} />
-        {/* <BrowserRouter>
+        <BrowserRouter>
 
         <Navbar/>
 
         <Switch>
             <Route path="/" exact component={Products} />
             <Route path="/auth" exact component={Auth} />
-            <Route path="/form" exact component={Form} />
+            {/* <Route path="/form" exact component={Form} /> */}
         </Switch>
 
-        </BrowserRouter> */}
+        </BrowserRouter>
         </div>
     )
 }
