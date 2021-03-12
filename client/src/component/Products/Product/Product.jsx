@@ -13,11 +13,12 @@ function Product({product, setCurrentId}) {
 
     const classes = useStyles();
     const dispatch = useDispatch();
+    const user = JSON.parse(localStorage.getItem('profile'))
 
     return (
         
         //TODO: --add a button to delete the prod in a separate details tab 
-        
+        //TODO: -- show the edit button button only to the created user .
 
         <Card className={classes.root}>
             <CardMedia className={classes.media} image={product.image} title={product.name}/>
@@ -40,9 +41,12 @@ function Product({product, setCurrentId}) {
                     </Button>
                 </div>     
             </CardContent>
+            {(user.id === product?.UserId ) && (
+
             <Button style={{display: "flex",justifyContent:'flex-start'}} onClick={() => dispatch(deleteProd(product.id))}>
-               <Delete fontSize="small" />
+               <Delete fontSize="small" /> Delete
             </Button>
+            )}
             <CardActions disableSpacing className={classes.cardActions}>
                 <IconButton aria-label="Add to Cart">
                     <AddShoppingCart/>

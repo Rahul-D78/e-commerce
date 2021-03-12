@@ -34,8 +34,7 @@ router.get('/:slug', async (req, res) => {
 })
 
 //POST ----> To post a new product
-//TODO: --- add auhtByToke  
-router.post('/',  async (req, res) => {
+router.post('/',  authByToken ,async (req, res) => {
 
     try {
         //validate the price
@@ -45,8 +44,8 @@ router.post('/',  async (req, res) => {
             });
         }
         
-        // const user = await User.findOne({where: {email: req.body.user.email}})
-        // if(!user) throw "user with this email does not exists"
+        const user = await User.findOne({where: {email: req.body.user.email}})
+        if(!user) throw "user with this email does not exists"
         
         // console.log(Slugify(req.body.product.name));
         
@@ -54,10 +53,12 @@ router.post('/',  async (req, res) => {
         name: f(req.body.name),
         image:req.body.image,
         price:req.body.price,
+        category: req.body.category,
         // review: req.body.product.review,
         description: req.body.description,
         manufacture: req.body.manufacture,
-        // UserId: req.body.user.id 
+        UserId: req.body.user.id,
+        createdAt: new Date().toISOString() 
         })
         product.save()
         res.status(200).send({
@@ -65,7 +66,7 @@ router.post('/',  async (req, res) => {
         })
     }catch(e) {
         res.status(500).send({
-           err : e
+           err : e.message
         })
         console.log(e);
     }
@@ -111,5 +112,10 @@ router.delete('/:id/delete', (req, res) => {
         })
     })
 })
+
+// router.post('/:id/cart', (req, res) => {
+//     Product.findOne({where: {id: req.params.id}})
+//     .then((product))
+// })
 
 module.exports = router

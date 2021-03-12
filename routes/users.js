@@ -1,3 +1,4 @@
+const authByToken = require('../middlewares/auth')
 const { User } = require('../models/db')
 const router = require('express').Router()
 const { sign } = require('../utils/jwt')
@@ -20,22 +21,22 @@ router.get('/', (req, res) => {
 
 
 //POST ------ Register a new user
-router.post('/signup', async(req, res) => {
+router.post('/register', async(req, res) => {
     
-    const existing = await User.findOne({where: {email: req.body.user.email}})
+    const existing = await User.findOne({where: {email: req.body.email}})
     
     try {
 
     if(existing) throw 'user with this email exists'
     
     await User.create({
-        name: req.body.user.name,
-        password: await hashPass(req.body.user.password),
-        email: req.body.user.email,
-        address: req.body.user.address,
-        telephone: req.body.user.telephone,
+        name: req.body.name,
+        password: await hashPass(req.body.password),
+        email: req.body.email,
+        address: req.body.address,
+        telephone: req.body.telephone,
     }).then(async(user) => {
-        user.token = await sign(user)
+        // user.token = await sign(user)
         user.save()
         res.status(200).send(user)
     })
@@ -47,11 +48,11 @@ router.post('/signup', async(req, res) => {
 })
 
 //POST ---- Login a new user
-router.post('/login', async(req, res) => {
+router.post('/login',  async(req, res) => {
 
     try {
     
-    const exist = await User.findOne({email: {email: req.body.user.email}})
+    const exist = await User.findOne({where: {email: req.body.email}})
     
     // console.log(exist.toJSON());
     if(!exist) throw 'user with this email not exists'
@@ -61,13 +62,11 @@ router.post('/login', async(req, res) => {
 
 
     //Validate Password
-    const passMatch = await matchPass(myPass, req.body.user.password)
+    const passMatch = await matchPass(myPass, req.body.password)
     if(!passMatch) throw 'password does not match'
     exist.token = await sign(exist)
     // sanitization(myJson)
-    res.status(200).send({
-        body : exist.token
-    })
+    res.status(200).send(exist)
     }catch(e) {
         res.status(403).send({
             err : "Login Failed check for the credentials"

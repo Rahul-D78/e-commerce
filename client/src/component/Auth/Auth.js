@@ -10,7 +10,9 @@ import { useDispatch } from 'react-redux'
 
 import { login, signup } from '../../actions/auth'
 
-const initialState = { firstName: '', lastName: '', email: '' ,password: '', confirmPassword: '' }
+// firstName: '', lastName: ''
+
+const initialState = {name: '', email: '' ,password: '', confirmPassword: '' }
 
 const Auth = () => {
     const classes = useStyles();
@@ -64,16 +66,20 @@ const Auth = () => {
                     <Grid container spacing={2}>
                         { isSignUp && (
                             <>
-                                <Input name="firstName" label="First Name" handleChange={handleChange} autoFocus half></Input>
-                                <Input name="lastName" label="Last Name" handleChange={handleChange} half></Input>
+                                {/* <Input name="firstName" label="First Name" handleChange={handleChange} autoFocus half></Input> */}
+                                {/* <Input name="lastName" label="Last Name" handleChange={handleChange} half></Input> */}
+                                <Input name="name" label="name" handleChange={handleChange}  autoFocus half></Input>
                             </>
                         )}
                         <Input name="email" label="Email Address" handleChange={handleChange} type="email" />
                         <Input name="password" label="Password" handleChange={handleChange} type={showPass ? "text" : "password"} handleShowPass={handleShowPass} />
                         { isSignUp && <Input name="confirmPassword" label="Repeat Password" handleChange={handleChange} type="password"  /> }
                     </Grid>
+                    <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
+                        { isSignUp ? 'Sign Up' : 'Sign In' }
+                    </Button>
                     <GoogleLogin
-                        clientId="907804852724-1ems6d648i4bahl10cn3j3dq4d50psr1.apps.googleusercontent.com"
+                        clientId=""
                         render={(renderProps) => (
                             <Button className={classes.googleButton} color="primary" fullWidth onClick={renderProps.onClick} disabled={renderProps.disabled} variant="contained" startIcon={<Icon />}>
                                 Google Sign In

@@ -1,8 +1,9 @@
+require('dotenv').config();
 const Sequelize = require('sequelize');
 
-const db = new Sequelize('ecdb','euser','pass',{
+const db = new Sequelize('ecdb','euser','789Qweasz,',{
     dialect: 'mysql',
-    host: 'localhost',
+    host: process.env.DB_HOST,
     pool: {
         min: 0,
         max: 5
@@ -18,6 +19,10 @@ const User = db.define('User',{
    name: {
        type: Sequelize.STRING,
        allowNull: false
+   },
+   image: {
+        type: Sequelize.STRING,
+        allowNull: true
    },
    password: {
        type: Sequelize.STRING,
@@ -41,7 +46,6 @@ const User = db.define('User',{
    }
 });
 
-//TODO: --- Add a categogy and Tags and implement searching 
 //TODO: --- Implement releted items via the category and the price and tage
 
 const Product = db.define('Product', {
@@ -68,6 +72,10 @@ const Product = db.define('Product', {
         allowNull: true,
     },
     manufacture : {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
+    category: {
         type: Sequelize.STRING,
         allowNull: false
     },

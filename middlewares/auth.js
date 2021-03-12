@@ -20,16 +20,15 @@ async function authByToken(req, res, next) {
        if(token && isCustomAuth) {
             user = await decode(token)
             if(!user) throw 'No user Found in Token'
-            // req.body.user = user;
+            req.body.user = user;
             req.userId = user.id;
        
         }else {
             user = await oauth(token);
             if(!user) throw 'No user found'
             // req.body.user = user;
-            req.userId = user.sub;
+            // req.userId = user.sub;
         }
-
        next()
     }catch(e) {
       res.status(500).send({
